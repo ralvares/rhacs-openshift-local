@@ -105,8 +105,85 @@
   retries: 60
   delay: 20
 
-- name: Add OpenShift auth provider
-  include_tasks: ocp_auth_provider.yml
+- name: Create OpenShift auth provider in RHACS (returns HTTP 400 if the auth provider already exists)
+  uri:
+    url: 'https://{{ f_stackrox_central_addr }}/v1/authProviders'
+    method: POST
+    body_format: json
+    body:
+      name: OpenShift OAuth
+      type: openshift
+      enabled: true
+    url_username: admin
+    url_password: '{{ f_stackrox_admin_password }}'
+    force_basic_auth: True
+    validate_certs: False
+    status_code: [ 200, 400 ]
+
+- name: Get auth providers in RHACS
+  uri:
+    url: 'https://{{ f_stackrox_central_addr }}/v1/authProviders'
+    method: GET
+    url_username: admin
+    url_password: '{{ f_stackrox_admin_password }}'
+    force_basic_auth: True
+    validate_certs: False
+    status_code: [ 200, 400 ]
+  register: rhacs_auth_providers
+
+- set_fact:
+    rhacs_auth_provider_id: "{{ (rhacs_auth_providers.json.authProviders | selectattr('name', 'equalto', 'OpenShift OAuth') | first).id }}"
+
+- name: Set minimum access role (returns HTTP 500 if the auth provider already exists)
+  uri:
+    url: 'https://{{ f_stackrox_central_addr }}/v1/groups'
+    method: POST
+    body_format: json
+    body:
+      props:
+        authProviderId: '{{ rhacs_auth_provider_id }}'
+        key: ""
+        value: ""
+      roleName: None
+    url_username: admin
+    url_password: '{{ f_stackrox_admin_password }}'
+    force_basic_auth: True
+    validate_certs: False
+    status_code: [ 200, 500 ]
+
+- name: Grant Admin role to developer (returns HTTP 500 if the auth provider already exists)
+  uri:
+    url: 'https://{{ f_stackrox_central_addr }}/v1/groups'
+    method: POST
+    body_format: json
+    body:
+      props:
+        authProviderId: '{{ rhacs_auth_provider_id }}'
+        key: name
+        value: developer
+      roleName: Admin
+    url_username: admin
+    url_password: '{{ f_stackrox_admin_password }}'
+    force_basic_auth: True
+    validate_certs: False
+    status_code: [ 200, 500 ]
+
+- name: Grant Admin role to kubeadmin (returns HTTP 500 if the auth provider already exists)
+  uri:
+    url: 'https://{{ f_stackrox_central_addr }}/v1/groups'
+    method: POST
+    body_format: json
+    body:
+      props:
+        authProviderId: '{{ rhacs_auth_provider_id }}'
+        key: name
+        value: kubeadmin
+      roleName: Admin
+    url_username: admin
+    url_password: '{{ f_stackrox_admin_password }}'
+    force_basic_auth: True
+    validate_certs: False
+    status_code: [ 200, 500 ]
 
 - name: CENTRAL ADMIN URL and PASSWORD 
   debug:
