@@ -53,7 +53,7 @@ ansible-galaxy collection install kubernetes.core
 ##### Install RHACS and Demo Workloads
 ```
 git clone https://github.com/ralvares/rhacs-openshift-local
-cd rhacs-demo-crc
+cd rhacs-openshift-local
 ```
 
 Login to crc/ocp using a Cluster-Admin user.
