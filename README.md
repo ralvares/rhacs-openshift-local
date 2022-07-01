@@ -42,7 +42,7 @@ yum install python3-pyyaml python3-jmespath python3-openshift ansible -y
 ```
 brew install python
 pip3 install ansible
-pip3 pyyaml openshift jmespath
+pip3 install pyyaml openshift jmespath
 ```
 
 ##### Install ansible collection
