@@ -12,10 +12,14 @@ spec:
     resources:
       requests:
         cpu: 200m
+      limits:
+        cpu: 500m
   sensor:
     resources:
       requests:
         cpu: 200m
+      limits:
+        cpu: 500m
   perNode:
     collector:
       collection: EBPF
@@ -23,8 +27,12 @@ spec:
       resources:
         requests:
           cpu: 200m
+        limits:
+          cpu: 500m
     compliance:
       resources:
         requests:
           cpu: 200m
+        limits:
+          cpu: 500m
     taintToleration: TolerateTaints

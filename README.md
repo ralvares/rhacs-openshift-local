@@ -13,7 +13,7 @@
 
 #### Minimum Requirements to run the demo workload on top of OpenShift Local: [Configuring the virtual machine](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.5/html-single/getting_started_guide/index#changing-the-selected-preset_gsg)
 
-- Minimum 4 vCPU (additional are strongly recommended).
+- Minimum 6 vCPU (additional are strongly recommended).
 - Minimum 16 GB RAM (additional memory is strongly recommended).
 
 ### Steps
@@ -21,7 +21,7 @@
 #### Configuring the CRC Virtual Machine
 ---
 ```
-crc config set cpus 4
+crc config set cpus 6
 crc config set memory 16384
 ```
 

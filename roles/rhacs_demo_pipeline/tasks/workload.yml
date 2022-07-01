@@ -50,7 +50,7 @@
     namespace: openshift-pipelines
     name: tekton-pipelines-controller
   register: r_pipeline_controller_deployment
-  retries: 60
+  retries: 120
   delay: 20
   until:
   - r_pipeline_controller_deployment.resources | length | int > 0
@@ -73,7 +73,7 @@
     kind: ClusterTask
     api_version: tekton.dev/v1beta1
     name: "{{ item }}"
-  retries: 5
+  retries: 120
   delay: 30
   register: r_task_available
   until: r_task_available.resources | length > 0

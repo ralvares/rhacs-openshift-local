@@ -19,6 +19,8 @@ spec:
     resources:
       requests:
         cpu: 200m
+      limits:
+        cpu: 1000m
   egress:
     connectivityPolicy: Online
   scanner:
@@ -26,6 +28,8 @@ spec:
       resources:
         requests:
           cpu: 200m
+        limits:
+          cpu: 1000m
       scaling:
         autoScaling: Disabled
         replicas: 1
