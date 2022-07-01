@@ -105,6 +105,9 @@
   retries: 60
   delay: 20
 
+- name: Add OpenShift auth provider
+  include_tasks: ocp_auth_provider.yml
+
 - name: CENTRAL ADMIN URL and PASSWORD 
   debug:
     msg: 

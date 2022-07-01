@@ -59,7 +59,7 @@ cd rhacs-openshift-local
 Login to crc/ocp using a Cluster-Admin user.
 ---
 ```
-oc login -u kubeadmin https://api.crc.testing:6443 
+oc login -u kubeadmin https://api.crc.testing:6443
 ```
 
 Running the playbook.
@@ -68,4 +68,8 @@ Running the playbook.
 ansible-playbook rhacs-install.yaml
 ```
 
-It might take a bit of time, so grab a coffee and enjoy :)
+You can use the openshift-local credentials to get access to the Central Dashboard via Openshift OAuth
+```
+crc console --credentials
+```
+Central URL: https://central-stackrox.apps-crc.testing/login
