@@ -68,6 +68,8 @@ Running the playbook.
 ansible-playbook rhacs-install.yaml
 ```
 
+Access to Central
+---
 You can use the openshift-local credentials to get access to the Central Dashboard via Openshift OAuth
 ```
 crc console --credentials
